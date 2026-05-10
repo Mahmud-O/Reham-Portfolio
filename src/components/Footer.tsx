@@ -17,11 +17,11 @@ const socials = [
   { name: "GitHub", icon: GitBranch, href: "#" },
   { name: "LinkedIn", icon: Link2, href: "#" },
   { name: "Twitter", icon: MessageCircle, href: "#" },
-  { name: "Email", icon: Mail, href: "mailto:[EMAIL_ADDRESS]" },
+  { name: "Email", icon: Mail, href: "mailto:rehamg675@gmail.com" },
 ];
 
 const contactInfo = [
-  { icon: Mail, label: "[EMAIL_ADDRESS]" },
+  { icon: Mail, label: "rehamg675@gmail.com" },
   { icon: MapPin, label: "cairo, Egypt" },
   { icon: Phone, label: "+201032902078" },
 ];
@@ -215,7 +215,7 @@ export default function Footer() {
                 }}
                 onFocus={(e) => (e.target.style.borderColor = "rgba(217,70,239,0.5)")}
                 onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
-                placeholder="[EMAIL_ADDRESS]"
+                placeholder="rehamg675@gmail.com"
               />
             </div>
 

@@ -137,7 +137,9 @@ export default function Hero() {
                 <ArrowRight size={16} />
               </a>
               <a
-                href="#contact"
+                href="/Reham_Gamal_FlowCV_Resume_2026-03-01 (3).pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
