@@ -2,39 +2,58 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, GitBranch } from "lucide-react";
+import Image from "next/image";
 
-const projects = [
+interface Project {
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+  image: string;
+  stats: string;
+  gradient: string;
+}
+
+const projects: Project[] = [
   {
-    title: "FinTrack Pro",
+    title: "My Stock",
     category: "Flutter — Mobile & Web",
-    description: "A comprehensive personal finance app with real-time stock tracking, budget management, and AI-powered investment insights built with Flutter.",
+    description:
+      "My Stock is a robust warehouse and inventory management application developed natively for Android using Kotlin. Designed with high performance and scalable architecture in mind, the app empowers businesses to efficiently track stock levels, manage supplier and customer data, and seamlessly monitor the lifecycle of goods.",
     tags: ["Flutter", "Dart", "Provider", "Charts"],
-    gradient: "linear-gradient(135deg, rgba(217,70,239,0.2), rgba(168,85,247,0.2))",
+    image: "/my-stock.png",
     stats: "2M+ Downloads",
+    gradient: "linear-gradient(135deg, rgba(217,70,239,0.2), rgba(168,85,247,0.2))",
   },
   {
-    title: "FoodieHub",
+    title: "Abaya Luxe",
     category: "Flutter — Mobile",
-    description: "Food delivery platform with real-time order tracking, restaurant management dashboard, and ML-based recommendations.",
+    description:
+      "Abaya Luxe is a premium, multi-page e-commerce mobile application dedicated to luxury Arab and Gulf abayas",
     tags: ["Flutter", "Dart", "Firebase", "Maps SDK"],
-    gradient: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.2))",
+    image: "/train-station-trip.png",
     stats: "500K+ Users",
+    gradient: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.2))",
   },
   {
-    title: "MediCare+",
+    title: "Juice & Shakes Menu App UI",
     category: "Cross-Platform — Flutter",
-    description: "Telemedicine app featuring video consultations, prescription management, and health record tracking with end-to-end encryption.",
+    description:
+      "A sleek and modern Menu App UI built with Flutter, focusing on Clean Code and component Reusability. The design features an elegant food/drink catalog with floating asset images using staggered stacks and smooth scrolling behaviors.",
     tags: ["Flutter", "Dart", "WebRTC", "HL7 FHIR"],
-    gradient: "linear-gradient(135deg, rgba(16,185,129,0.2), rgba(20,184,166,0.2))",
+    image: "/juice-shakes-menu.png",
     stats: "4.9★ Rating",
+    gradient: "linear-gradient(135deg, rgba(16,185,129,0.2), rgba(20,184,166,0.2))",
   },
   {
-    title: "FitPulse",
-    category: "Flutter & Wearables",
-    description: "Fitness tracking app with Apple Watch/WearOS integration via Flutter plugins, workout analytics, and social fitness challenges.",
-    tags: ["Flutter", "Dart", "HealthKit", "Wear OS"],
+    title: "Azkar",
+    category: "Flutter — Mobile",
+    description:
+      "A beautifully designed Islamic Azkar application built with Flutter, offering daily remembrances, morning and evening supplications, and prayer-related adhkar with a clean, intuitive interface.",
+    tags: ["Flutter", "Dart", "Firebase", "Arabic RTL"],
+    image: "/azkar.png",
+    stats: "100K+ Downloads",
     gradient: "linear-gradient(135deg, rgba(6,182,212,0.2), rgba(59,130,246,0.2))",
-    stats: "1M+ Active Users",
   },
 ];
 
@@ -48,27 +67,90 @@ const cardVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <motion.div
+      variants={cardVariants}
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group relative overflow-hidden rounded-2xl bg-[#141625] border border-white/5 transition-colors hover:border-white/10 cursor-pointer"
+    >
+      {/* Image header */}
+      <div className="relative h-48 overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: project.gradient }}
+        />
+
+        {/* Stats badge */}
+        <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-white text-xs font-medium">
+          {project.stats}
+        </div>
+
+        {/* Hover overlay with buttons */}
+        <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 bg-black/20 transition-opacity duration-300 group-hover:opacity-100">
+          <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-none cursor-pointer hover:bg-white/30 transition-colors">
+            <ExternalLink size={18} color="white" />
+          </button>
+          <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-none cursor-pointer hover:bg-white/30 transition-colors">
+            <GitBranch size={18} color="white" />
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <p className="text-[11px] text-fuchsia-500 font-medium mb-2 uppercase tracking-wider">
+          {project.category}
+        </p>
+        <h3 className="text-xl font-bold text-slate-50 mb-3">
+          {project.title}
+        </h3>
+        <p className="text-sm text-slate-400 leading-relaxed mb-4">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 text-xs rounded-full bg-white/5 text-slate-400 border border-white/5"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function CaseStudies() {
   return (
-    <section id="projects" style={{ padding: "96px 0", position: "relative" }}>
+    <section id="projects" className="py-24 relative">
       {/* Background accent */}
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "600px", height: "600px", background: "rgba(217,70,239,0.05)", borderRadius: "50%", filter: "blur(200px)", pointerEvents: "none" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-fuchsia-500/5 rounded-full blur-[200px] pointer-events-none" />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{ textAlign: "center", marginBottom: "64px" }}
+          className="text-center mb-16"
         >
-          <p style={{ fontSize: "12px", color: "#D946EF", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, marginBottom: "12px" }}>
+          <p className="text-xs text-fuchsia-500 uppercase tracking-widest font-semibold mb-3">
             Portfolio
           </p>
-          <h2 style={{ fontSize: "clamp(28px, 3vw, 36px)", fontWeight: 700, color: "#f8fafc" }}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-50">
             Featured Case Studies
           </h2>
-          <p style={{ color: "#94a3b8", marginTop: "16px", maxWidth: "640px", margin: "16px auto 0", lineHeight: 1.7 }}>
+          <p className="text-slate-400 mt-4 max-w-2xl mx-auto leading-relaxed">
             A curated selection of projects that showcase my approach to mobile development — from concept to App Store.
           </p>
         </motion.div>
@@ -78,130 +160,10 @@ export default function CaseStudies() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid-projects"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {projects.map((project) => (
-            <motion.div
-              key={project.title}
-              variants={cardVariants}
-              whileHover={{ scale: 1.02, y: -4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              style={{
-                position: "relative",
-                overflow: "hidden",
-                borderRadius: "16px",
-                background: "#141625",
-                border: "1px solid rgba(255,255,255,0.05)",
-                transition: "border-color 0.3s",
-                cursor: "pointer",
-              }}
-            >
-              {/* Gradient header */}
-              <div style={{
-                height: "192px",
-                background: project.gradient,
-                position: "relative",
-                overflow: "hidden",
-              }}>
-                {/* Abstract pattern */}
-                <div style={{ position: "absolute", inset: 0, opacity: 0.3 }}>
-                  <div style={{ position: "absolute", top: "16px", right: "16px", width: "128px", height: "128px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", transform: "rotate(12deg)" }} />
-                  <div style={{ position: "absolute", bottom: "16px", left: "16px", width: "96px", height: "96px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "50%" }} />
-                  <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%) rotate(45deg)", width: "64px", height: "64px", background: "rgba(255,255,255,0.05)", borderRadius: "8px" }} />
-                </div>
-
-                {/* Stats badge */}
-                <div style={{
-                  position: "absolute",
-                  top: "16px",
-                  left: "16px",
-                  padding: "4px 12px",
-                  borderRadius: "999px",
-                  background: "rgba(0,0,0,0.3)",
-                  backdropFilter: "blur(8px)",
-                  fontSize: "12px",
-                  color: "white",
-                  fontWeight: 500,
-                }}>
-                  {project.stats}
-                </div>
-
-                {/* Hover overlay with buttons */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "12px",
-                  opacity: 0,
-                  background: "rgba(0,0,0,0.2)",
-                  transition: "opacity 0.3s",
-                }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "0")}
-                >
-                  <button style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.2)",
-                    backdropFilter: "blur(4px)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "none",
-                    cursor: "pointer",
-                  }}>
-                    <ExternalLink size={18} color="white" />
-                  </button>
-                  <button style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.2)",
-                    backdropFilter: "blur(4px)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "none",
-                    cursor: "pointer",
-                  }}>
-                    <GitBranch size={18} color="white" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div style={{ padding: "24px" }}>
-                <p style={{ fontSize: "11px", color: "#D946EF", fontWeight: 500, marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                  {project.category}
-                </p>
-                <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#f8fafc", marginBottom: "12px" }}>
-                  {project.title}
-                </h3>
-                <p style={{ fontSize: "14px", color: "#94a3b8", lineHeight: 1.7, marginBottom: "16px" }}>
-                  {project.description}
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        padding: "4px 12px",
-                        fontSize: "12px",
-                        borderRadius: "999px",
-                        background: "rgba(255,255,255,0.05)",
-                        color: "#94a3b8",
-                        border: "1px solid rgba(255,255,255,0.05)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <ProjectCard key={project.title} project={project} />
           ))}
         </motion.div>
       </div>
