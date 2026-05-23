@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Star, Shield, Layers } from "lucide-react";
 
+
 const metrics = [
   { icon: Users, value: 10000000, suffix: "+", label: "App Downloads" },
   { icon: Star, value: 4.8, suffix: "★", label: "Avg. Store Rating", decimal: true },
@@ -56,6 +57,27 @@ export default function ImpactMetrics() {
   return (
     <section id="about" style={{ padding: "96px 0", position: "relative" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          style={{ textAlign: "center", marginBottom: "48px" }}
+        >
+          <p style={{ fontSize: "12px", color: "#D946EF", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, marginBottom: "12px" }}>
+            About
+          </p>
+          <p style={{
+            fontSize: "18px",
+            color: "#cbd5e1",
+            maxWidth: "800px",
+            margin: "0 auto",
+            lineHeight: 1.8,
+          }}>
+            I am a mobile app developer specializing in building modern, user-friendly applications using Flutter and Firebase. I focus on creating efficient, scalable, and well-structured solutions with clean UI/UX design and smooth performance. I have experience working with backend integration, APIs, and real-time features to deliver complete mobile solutions. I am committed to continuous learning and delivering high-quality work that meets client needs and enhances user experience.
+          </p>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
