@@ -106,9 +106,7 @@ export default function Hero() {
                 lineHeight: 1.7,
               }}
             >
-              Senior Mobile Developer with 5+ years crafting high-performance
-              apps with Flutter. I turn complex problems into seamless,
-              beautiful cross-platform experiences that millions love.
+              I am a mobile app developer specializing in building modern, user-friendly applications using Flutter and Firebase. I focus on creating efficient, scalable, and well-structured solutions with clean UI/UX design and smooth performance. I have experience working with backend integration, APIs, and real-time features to deliver complete mobile solutions. I am committed to continuous learning and delivering high-quality work that meets client needs and enhances user experience.
             </motion.p>
 
             <motion.div
